@@ -758,7 +758,7 @@ namespace SpinnakerTest
             "#fafc66", "#fafc66", "#fbfd66", "#fbfd66", "#fcfe66", "#fcfe66", "#fdfe66", "#fdfe66",
             "#fefe66", "#fefe66", "#ffff66", "#ffff66"
 
-        }; 
+        };
 
     }
 }

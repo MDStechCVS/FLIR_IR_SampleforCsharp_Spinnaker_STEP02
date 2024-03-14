@@ -45,7 +45,7 @@ namespace SpinnakerTest
         private int stIntCamFrameArray = int320256;
         private int mCurWidth = 320;
         private int mCurHeight = 256;
-   
+
         private bool bProcessing = false;
 
         // Offset Value  
@@ -254,12 +254,12 @@ namespace SpinnakerTest
             maxSpot = new MeasureSpotValue(System.Drawing.Color.White);
             minSpot = new MeasureSpotValue(System.Drawing.Color.Yellow);
 
-            Palette_ComboBox_Initialize(); 
+            Palette_ComboBox_Initialize();
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            
+
             if (connectcam != null)
             {
                 connectcam.Dispose();
@@ -319,7 +319,7 @@ namespace SpinnakerTest
 
                 // Disconnect controls
                 CameraDisconnect(connectcam);
-                
+
             }
             catch (Exception ex)
             {
@@ -340,7 +340,7 @@ namespace SpinnakerTest
             try
             {
                 cam.Init();
-               
+
                 // 카메라 연결 
                 camPlayOne(cam);
             }
@@ -563,7 +563,7 @@ namespace SpinnakerTest
                     CamDevice = "A400";
 
                 }
-                
+
                 // 카메라 별 측정 온도 값 구성 및 설정 
                 TempRangeConf(nodeMap);
             }
@@ -572,7 +572,7 @@ namespace SpinnakerTest
                 Console.WriteLine("Error: {0}", ex.Message);
             }
         }
-        
+
         private void CameraDisconnect(IManagedCamera cam)
         {
             try
@@ -682,7 +682,7 @@ namespace SpinnakerTest
 
                     if (Current_Palette == "Rainbow")
                     {
-                        cnt = 255; 
+                        cnt = 255;
                     }
 
                     int rVal = (int)((data[a] - minval) * cnt / tempdiff);
@@ -697,7 +697,7 @@ namespace SpinnakerTest
                         roiBox.CheckXYinBox(x, y, data[a]);
                     }
                 }
-                
+
                 Graphics gr = Graphics.FromImage(bmp);
 
                 int maxX = 0;
@@ -772,7 +772,7 @@ namespace SpinnakerTest
                 {
                     if (!isRunning)
                     {
-                        return; 
+                        return;
                     }
 
                     if (cam.IsValid() != true && cam != null)
@@ -831,7 +831,7 @@ namespace SpinnakerTest
 
                                 }
 
-                                imgArray[a/2] = sample;
+                                imgArray[a / 2] = sample;
                                 uint16Count++;
 
                             }
@@ -873,7 +873,7 @@ namespace SpinnakerTest
             roiBox.SetIsVisible(true);
 
         }
-        
+
         delegate void DelegateCompositionTarget_Rendering(double minval, double maxval, double measurePoint, double measurePoint2);
         void CompositionTarget_Rendering(double minval, double maxval, double roiminval, double roimaxval)
         {
@@ -900,7 +900,7 @@ namespace SpinnakerTest
             try
             {
                 // 카메라가 연결되지 않은 경우 
-                if (CamDevice == null) 
+                if (CamDevice == null)
                 {
                     Console.WriteLine("No Connected Camera!");
                     return;
@@ -910,7 +910,7 @@ namespace SpinnakerTest
                 comboRanges.Items.Clear();
 
                 string[] retValue = null;
-                
+
                 // Ax5
                 if (CamDevice.Contains("AX5"))
                 {
@@ -927,7 +927,7 @@ namespace SpinnakerTest
                         for (int a = 0; a < countValue; a++)
                         {
                             retValue[a] = ee[a].DisplayName;
-                            RangeIndexData.Add((short)a); 
+                            RangeIndexData.Add((short)a);
                             Console.WriteLine("GainMode[" + a + "] : " + retValue[a]);
                         }
                     }
@@ -945,7 +945,7 @@ namespace SpinnakerTest
                     long i;
                     bool enabled;
                     retValue = new string[numCases];
-                    int index = 0; 
+                    int index = 0;
                     for (i = 0; i < numCases; i++)
                     {
                         // Set case selector                        
@@ -961,14 +961,14 @@ namespace SpinnakerTest
 
                             //retValue는 온도 범위 저장 
                             retValue[index] = TempRange;
-                            index++; 
+                            index++;
 
                             // RangeIndexData에는 CurrentCase 값이 저장 - ex) 1, 2, 6, 7 ..등과 같은 
                             RangeIndexData.Add((short)i);
                         }
                     }
                     // 기본 설정은 0번 인덱스에 저장된 온도 범위로 설정
-                    CC.Value = RangeIndexData[0]; 
+                    CC.Value = RangeIndexData[0];
                 }
 
                 for (int j = 0; j < retValue.Length; j++)
@@ -977,7 +977,7 @@ namespace SpinnakerTest
                     comboRanges.Items.Add(retValue[j]);
                 }
 
-                comboRanges.SelectedIndex = 0; 
+                comboRanges.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -1035,7 +1035,7 @@ namespace SpinnakerTest
 
                     }
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -1172,7 +1172,7 @@ namespace SpinnakerTest
         {
             Color col = new Color();
 
-            if(Current_Palette != "Rainbow") 
+            if (Current_Palette != "Rainbow")
             {
                 if (PaletteColorMap.Count > rVal)
                 {
@@ -1200,12 +1200,12 @@ namespace SpinnakerTest
                 }
             }
 
-            return col; 
+            return col;
         }
 
 
         #endregion
-       
+
 
     }
 }
