@@ -1077,24 +1077,17 @@ namespace SpinnakerTest
 
         private void Palette_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
+            ComboBox combobox = sender as ComboBox;
+            string _palette = combobox.SelectedItem.ToString();
+
+            if (combobox.SelectedItem.ToString() != Current_Palette)
             {
-                ComboBox combobox = sender as ComboBox;
-                string _palette = combobox.SelectedItem.ToString();
+                // Palette 설정 변경  
+                Current_Palette = combobox.SelectedItem.ToString();
 
-                if (combobox.SelectedItem.ToString() != Current_Palette)
-                {
-                    // Palette 설정 변경  
-                    Current_Palette = combobox.SelectedItem.ToString();
+                // ColorMap 재구성 
+                GetColorMap();
 
-                    // ColorMap 재구성 
-                    GetColorMap();
-
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("");
             }
         }
         #endregion
@@ -1103,85 +1096,73 @@ namespace SpinnakerTest
         //// ColorMap 생성 시 가질 수 있는 최저/최고 온도 값 
         private void GetColorMap()
         {
-            try
-            {
-                switch (Current_Palette)
-                {
-                    case "Rainbow":
-                        break;
-                    case "Plasma":
-                        GetRGBfrom16bit(MDSPALETTE.Plasma_palette);
-                        break;
-                    case "Iron":
-                        GetRGBfrom16bit(MDSPALETTE.Iron_palette);
-                        break;
-                    case "Arctic":
-                        GetRGBfrom16bit(MDSPALETTE.Arctic_palette);
-                        break;
-                    case "Jet":
-                        GetRGBfrom16bit(MDSPALETTE.Jet_palette);
-                        break;
-                    case "Infer":
-                        GetRGBfrom16bit(MDSPALETTE.Infer_palette);
-                        break;
-                    case "Redgray":
-                        GetRGBfrom16bit(MDSPALETTE.Redgray_palette);
-                        break;
-                    case "Viridis":
-                        GetRGBfrom16bit(MDSPALETTE.Viridis_palette);
-                        break;
-                    case "Magma":
-                        GetRGBfrom16bit(MDSPALETTE.Magma_palette);
-                        break;
-                    case "Cividis":
-                        GetRGBfrom16bit(MDSPALETTE.Cividis_palette);
-                        break;
-                    case "Coolwarm":
-                        GetRGBfrom16bit(MDSPALETTE.Coolwarm_palette);
-                        break;
-                    case "Spring":
-                        GetRGBfrom16bit(MDSPALETTE.Spring_palette);
-                        break;
-                    case "Summer":
-                        GetRGBfrom16bit(MDSPALETTE.Summer_palette);
-                        break;
-                    default:
-                        Current_Palette = "Rainbow";
-                        break;
 
-                }
-            }
-            catch (Exception ex)
+            switch (Current_Palette)
             {
-                Console.WriteLine("");
+                case "Rainbow":
+                    break;
+                case "Plasma":
+                    GetRGBfrom16bit(MDSPALETTE.Plasma_palette);
+                    break;
+                case "Iron":
+                    GetRGBfrom16bit(MDSPALETTE.iron_palette);
+                    break;
+                case "Arctic":
+                    GetRGBfrom16bit(MDSPALETTE.Arctic_palette);
+                    break;
+                case "Jet":
+                    GetRGBfrom16bit(MDSPALETTE.Jet_palette);
+                    break;
+                case "Infer":
+                    GetRGBfrom16bit(MDSPALETTE.Infer_palette);
+                    break;
+                case "Redgray":
+                    GetRGBfrom16bit(MDSPALETTE.Redgray_palette);
+                    break;
+                case "Viridis":
+                    GetRGBfrom16bit(MDSPALETTE.Viridis_palette);
+                    break;
+                case "Magma":
+                    GetRGBfrom16bit(MDSPALETTE.Magma_palette);
+                    break;
+                case "Cividis":
+                    GetRGBfrom16bit(MDSPALETTE.Cividis_palette);
+                    break;
+                case "Coolwarm":
+                    GetRGBfrom16bit(MDSPALETTE.Coolwarm_palette);
+                    break;
+                case "Spring":
+                    GetRGBfrom16bit(MDSPALETTE.Spring_palette);
+                    break;
+                case "Summer":
+                    GetRGBfrom16bit(MDSPALETTE.Summer_palette);
+                    break;
+                default:
+                    Current_Palette = "Rainbow";
+                    break;
+
             }
         }
         private void GetRGBfrom16bit(List<string> pal)
         {
-            try
+            // 16진수 값을 R, G, B로 분리하여 PaletteColorMap에 저장 
+
+            // 기존 Palette에 관한 ColorMap 값 초기화 
+            PaletteColorMap.Clear();
+
+            foreach (string val in pal)
             {
-                // 16진수 값을 R, G, B로 분리하여 PaletteColorMap에 저장 
+                // # 기호 제거 후 HEX 값을 파싱하여 RGB 컬러로 변환
+                string hexWithoutHash = val.TrimStart('#');
 
-                // 기존 Palette에 관한 ColorMap 값 초기화 
-                PaletteColorMap.Clear();
+                int r = int.Parse(hexWithoutHash.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
+                int g = int.Parse(hexWithoutHash.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
+                int b = int.Parse(hexWithoutHash.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
 
-                foreach (string val in pal)
-                {
-                    // # 기호 제거 후 HEX 값을 파싱하여 RGB 컬러로 변환
-                    string hexWithoutHash = val.TrimStart('#');
-
-                    int r = int.Parse(hexWithoutHash.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
-                    int g = int.Parse(hexWithoutHash.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
-                    int b = int.Parse(hexWithoutHash.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
-
-                    // Color 객체로 변환하여 리스트에 추가
-                    PaletteColorMap.Add(Color.FromArgb(r, g, b));
-                }
+                // Color 객체로 변환하여 리스트에 추가
+                PaletteColorMap.Add(Color.FromArgb(r, g, b));
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("");
-            }
+
         }
         #endregion
 
@@ -1189,7 +1170,6 @@ namespace SpinnakerTest
 
         private Color GenerateColorPalette(int rVal)
         {
-
             Color col = new Color();
 
             if(Current_Palette != "Rainbow") 
@@ -1219,11 +1199,13 @@ namespace SpinnakerTest
                     col = Color.FromArgb(255, 255 - (rVal - step * 3) * 4, 0);
                 }
             }
+
             return col; 
         }
 
 
         #endregion
+       
 
     }
 }
