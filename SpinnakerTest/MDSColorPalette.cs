@@ -74,7 +74,7 @@ namespace SpinnakerTest
             "#f0f724", "#f0f724", "#f0f921", "#f0f921"
         };
 
-        public List<string> iron_palette = new List<string>
+        public List<string> Iron_palette = new List<string>
         {
             "#00000a", "#000014", "#00001e", "#000025", "#00002a", "#00002e", "#000032", "#000036",
             "#00003a", "#00003e", "#000042", "#000046", "#00004a", "#00004f", "#000052", "#010055",
