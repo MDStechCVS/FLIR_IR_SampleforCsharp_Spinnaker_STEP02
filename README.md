@@ -2,7 +2,7 @@
 
 # FLIR_IR_SampleforCsharp_Spinnaker Step02
 
-![00  완성 화면](https://github.com/user-attachments/assets/1bb0f1a4-9b8f-4e46-b05a-d9f984beab1d)
+![완성화면](https://github.com/user-attachments/assets/1bb0f1a4-9b8f-4e46-b05a-d9f984beab1d)
 
 FLIR IR 카메라 영상의 팔레트를 변경하는  예제입니다. 
 
